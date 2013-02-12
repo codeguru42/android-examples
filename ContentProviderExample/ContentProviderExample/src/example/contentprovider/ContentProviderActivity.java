@@ -8,10 +8,9 @@
 package example.contentprovider;
 
 import android.app.ListActivity;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.widget.CursorAdapter;
-import android.widget.SimpleCursorAdapter;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 
 /**
  *
@@ -27,10 +26,8 @@ public class ContentProviderActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        Cursor cursor = new DBHelper(this).getCursor();
-        String[] from = {DBHelper.WORD_COL};
-        int[] to = {android.R.id.text1};
-        CursorAdapter adapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, cursor, from, to);
+        String[] words = this.getResources().getStringArray(R.array.words);
+        ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, words);
         this.setListAdapter(adapter);
     }
 }
