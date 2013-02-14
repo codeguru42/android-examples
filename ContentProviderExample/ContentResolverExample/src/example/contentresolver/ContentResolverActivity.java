@@ -1,9 +1,9 @@
-package example.contentprovider;
+package example.contentresolver;
 
 import android.app.Activity;
 import android.os.Bundle;
 
-public class ContentResolverExample extends Activity
+public class ContentResolverActivity extends Activity
 {
     /** Called when the activity is first created. */
     @Override
