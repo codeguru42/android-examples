@@ -10,6 +10,10 @@
           package="example.contentprovider"
           android:versionCode="1"
           android:versionName="1.0">
+    <permission android:name="example.contentprovider.READ"
+                android:label="Example Data"
+                android:protectionLevel="signature"
+    />
     <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
         <activity android:name="ContentProviderActivity"
                   android:label="@string/app_name">
