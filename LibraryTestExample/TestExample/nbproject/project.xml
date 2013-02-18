@@ -11,6 +11,11 @@
             <properties/>
             <folders>
                 <source-folder>
+                    <label>LibraryTestExample</label>
+                    <location>.</location>
+                    <encoding>windows-1252</encoding>
+                </source-folder>
+                <source-folder>
                     <label>src</label>
                     <type>java</type>
                     <location>src</location>
@@ -20,11 +25,6 @@
                     <label>gen</label>
                     <type>java</type>
                     <location>gen</location>
-                    <encoding>windows-1252</encoding>
-                </source-folder>
-                <source-folder>
-                    <label>LibraryTestExample</label>
-                    <location>.</location>
                     <encoding>windows-1252</encoding>
                 </source-folder>
             </folders>
@@ -69,12 +69,15 @@
                     <ide-action name="test"/>
                 </context-menu>
             </view>
+            <subprojects>
+                <project>../LibraryExample</project>
+            </subprojects>
         </general-data>
         <java-data xmlns="http://www.netbeans.org/ns/freeform-project-java/1">
             <compilation-unit>
                 <package-root>src</package-root>
                 <package-root>gen</package-root>
-                <classpath mode="compile">E:\programs\java\android-sdk\platforms\android-16\android.jar</classpath>
+                <classpath mode="compile">E:\programs\java\android-sdk\platforms\android-16\android.jar;../LibraryExample/bin/classes.jar</classpath>
                 <source-level>1.5</source-level>
             </compilation-unit>
         </java-data>
