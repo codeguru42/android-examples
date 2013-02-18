@@ -69,15 +69,13 @@
                     <ide-action name="test"/>
                 </context-menu>
             </view>
-            <subprojects>
-                <project>../LibraryExample</project>
-            </subprojects>
+            <subprojects/>
         </general-data>
         <java-data xmlns="http://www.netbeans.org/ns/freeform-project-java/1">
             <compilation-unit>
                 <package-root>src</package-root>
                 <package-root>gen</package-root>
-                <classpath mode="compile">E:\programs\java\android-sdk\platforms\android-16\android.jar;../LibraryExample/bin/classes.jar</classpath>
+                <classpath mode="compile">/usr/local/bin/android-sdk-linux/platforms/android-16/android.jar:E:/programs/java/android-sdk/platforms/android-16/android.jar:../LibraryExample/bin/classes.jar</classpath>
                 <source-level>1.5</source-level>
             </compilation-unit>
         </java-data>
