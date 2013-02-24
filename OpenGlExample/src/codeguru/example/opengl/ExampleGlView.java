@@ -7,6 +7,7 @@
  */
 package codeguru.example.opengl;
 
+import android.content.Context;
 import android.opengl.GLSurfaceView;
 
 /**
@@ -14,11 +15,12 @@ import android.opengl.GLSurfaceView;
  * @author codeguru <codeguru@users.sourceforge.net>
  */
 public class ExampleGlView extends GLSurfaceView {
-    
+
     public ExampleGlView(Context context) {
         super(context);
-        
+
+        this.setEGLContextClientVersion(2);
         this.setRenderer(new ExampleGlRenderer());
     }
-    
+
 }
