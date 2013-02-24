@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ This program is free software. It comes without any warranty, to
+ the extent permitted by applicable law. You can redistribute it
+ and/or modify it under the terms of the Do What The Fuck You Want
+ To Public License, Version 2, as published by Sam Hocevar. See
+ http://sam.zoy.org/wtfpl/COPYING for more details.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="codeguru.example.opengl"
+          android:versionCode="1"
+          android:versionName="1.0">
+    <uses-feature android:glEsVersion="0x00020000" android:required="true" />
+    <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
+        <activity android:name="OpenGlExample"
+                  android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
