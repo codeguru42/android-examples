@@ -7,26 +7,18 @@
  */
 package codeguru.example.opengl;
 
-import android.app.Activity;
 import android.opengl.GLSurfaceView;
-import android.os.Bundle;
 
 /**
  *
  * @author codeguru <codeguru@users.sourceforge.net>
  */
-public class OpenGlExample extends Activity {
+public class ExampleGlView extends GLSurfaceView {
     
-    private GLSurfaceView glView = null;
-
-    /**
-     * Called when the activity is first created.
-     */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public ExampleGlView(Context context) {
+        super(context);
         
-        this.glView = new ExampleGlView(this);
-        setContentView(this.glView);
+        this.setRenderer(new ExampleGlRenderer());
     }
+    
 }
