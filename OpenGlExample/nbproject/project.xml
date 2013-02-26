@@ -11,6 +11,11 @@
             <properties/>
             <folders>
                 <source-folder>
+                    <label>OpenGlExample</label>
+                    <location>.</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
+                <source-folder>
                     <label>src</label>
                     <type>java</type>
                     <location>src</location>
@@ -20,11 +25,6 @@
                     <label>gen</label>
                     <type>java</type>
                     <location>gen</location>
-                    <encoding>UTF-8</encoding>
-                </source-folder>
-                <source-folder>
-                    <label>OpenGlExample</label>
-                    <location>.</location>
                     <encoding>UTF-8</encoding>
                 </source-folder>
             </folders>
@@ -65,12 +65,13 @@
                     <ide-action name="run"/>
                 </context-menu>
             </view>
+            <subprojects/>
         </general-data>
         <java-data xmlns="http://www.netbeans.org/ns/freeform-project-java/1">
             <compilation-unit>
                 <package-root>src</package-root>
                 <package-root>gen</package-root>
-                <classpath mode="compile">/usr/local/bin/android-sdk-linux/platforms/android-16/android.jar</classpath>
+                <classpath mode="compile">/usr/local/bin/android-sdk-linux/platforms/android-16/android.jar;E:\programs\java\android-sdk\platforms\android-16\android.jar</classpath>
                 <source-level>1.5</source-level>
             </compilation-unit>
         </java-data>
