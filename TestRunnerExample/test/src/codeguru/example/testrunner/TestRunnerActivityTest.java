@@ -31,7 +31,5 @@ public class TestRunnerActivityTest extends ActivityInstrumentationTestCase2<Tes
     public void testPreconditions() {
         Assert.assertNotNull(this.activity);
     }
-
     private Activity activity = null;
-
 }

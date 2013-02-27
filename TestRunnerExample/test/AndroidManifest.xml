@@ -18,4 +18,7 @@
     <instrumentation android:name="android.test.InstrumentationTestRunner"
                      android:targetPackage="codeguru.example.testrunner"
                      android:label="Tests for codeguru.example.testrunner"/>
+    <instrumentation android:name="codeguru.example.testrunner.ExampleTestRunner"
+                     android:targetPackage="codeguru.example.testrunner"
+                     android:label="Tests for codeguru.example.testrunner"/>
 </manifest>
