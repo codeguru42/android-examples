@@ -1,21 +1,37 @@
+/*
+ * This program is free software. It comes without any warranty, to
+ * the extent permitted by applicable law. You can redistribute it
+ * and/or modify it under the terms of the Do What The Fuck You Want
+ * To Public License, Version 2, as published by Sam Hocevar. See
+ * http://sam.zoy.org/wtfpl/COPYING for more details.
+ */
 package codeguru.example.testrunner;
 
+import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
+import junit.framework.Assert;
 
 /**
- * This is a simple framework for a test of an Application.  See
- * {@link android.test.ApplicationTestCase ApplicationTestCase} for more information on
- * how to write and extend Application tests.
- * <p/>
- * To run this test, you can type:
- * adb shell am instrument -w \
- * -e class codeguru.example.testrunner.TestRunnerActivityTest \
- * codeguru.example.testrunner.tests/android.test.InstrumentationTestRunner
+ *
+ * @author codeguru <codeguru@users.sourceforge.net>
  */
 public class TestRunnerActivityTest extends ActivityInstrumentationTestCase2<TestRunnerActivity> {
 
     public TestRunnerActivityTest() {
-        super("codeguru.example.testrunner", TestRunnerActivity.class);
+        super(TestRunnerActivity.class);
     }
+
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+
+        this.activity = this.getActivity();
+    }
+
+    public void testPreconditions() {
+        Assert.assertNotNull(this.activity);
+    }
+
+    private Activity activity = null;
 
 }
