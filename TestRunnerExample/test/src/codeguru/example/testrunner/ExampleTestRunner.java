@@ -18,7 +18,7 @@ public class ExampleTestRunner extends InstrumentationTestRunner {
 
     @Override
     public TestSuite getAllTests() {
-        TestSuite suite = super.getAllTests();
+        TestSuite suite = new TestSuite();
         suite.addTest(new TestRunnerActivityTest());
         return suite;
     }
