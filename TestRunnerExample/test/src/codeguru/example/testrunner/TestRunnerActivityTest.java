@@ -19,6 +19,8 @@ public class TestRunnerActivityTest extends ActivityInstrumentationTestCase2<Tes
 
     public TestRunnerActivityTest() {
         super(TestRunnerActivity.class);
+
+        this.setName("testPreconditions");
     }
 
     @Override
@@ -26,6 +28,13 @@ public class TestRunnerActivityTest extends ActivityInstrumentationTestCase2<Tes
         super.setUp();
 
         this.activity = this.getActivity();
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        this.activity.finish();
+
+        super.tearDown();
     }
 
     public void testPreconditions() {
