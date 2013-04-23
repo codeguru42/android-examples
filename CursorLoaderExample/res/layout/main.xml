@@ -7,14 +7,18 @@
  http://sam.zoy.org/wtfpl/COPYING for more details.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
               android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
 >
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Hello World, CursorLoaderExample"
+    <TextView android:id="@android:id/empty"
+              android:text="No Data"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+    />
+    <ListView android:id="@android:id/list"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
     />
 </LinearLayout>
-
