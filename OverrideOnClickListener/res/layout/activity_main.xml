@@ -14,4 +14,13 @@
         android:layout_height="wrap_content"
         android:text="@string/hello_world" />
 
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/hello"
+        android:layout_below="@+id/hello"
+        android:layout_marginTop="14dp"
+        android:text="Button" />
+
 </RelativeLayout>

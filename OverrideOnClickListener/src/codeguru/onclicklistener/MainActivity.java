@@ -1,11 +1,11 @@
 package codeguru.onclicklistener;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -14,13 +14,13 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		View textView = findViewById(R.id.hello);
-		textView.setOnClickListener(new OnClickListener() {
-
+		View button = findViewById(R.id.button1);
+		button.setOnClickListener(new OnClickListener() {
+			
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(MainActivity.this, "MainActivity",
-						Toast.LENGTH_LONG).show();
+				Intent i = new Intent(MainActivity.this, SubclassActivity.class);
+				startActivity(i);
 			}
 		});
 	}
