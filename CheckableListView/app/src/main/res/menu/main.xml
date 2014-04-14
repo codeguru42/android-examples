@@ -4,6 +4,7 @@
     tools:context="codeguru.checkablelistview.MainActivity" >
     
     <item android:id="@+id/add"
+        android:icon="@drawable/ic_menu_btn_add"
         android:title="@string/add"
         app:showAsAction="ifRoom" />
 </menu>
