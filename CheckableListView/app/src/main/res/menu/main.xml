@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="codeguru.checkablelistview.MainActivity" >
     
-    <item android:id="@+id/add"
+    <item android:id="@+id/add_menu"
         android:icon="@drawable/ic_menu_btn_add"
         android:title="@string/add"
         app:showAsAction="ifRoom" />

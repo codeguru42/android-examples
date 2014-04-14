@@ -14,11 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <EditText
+    <EditText android:id="@+id/word_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <Button
+    <Button android:id="@+id/add_button"
         android:text="@string/add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
