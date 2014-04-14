@@ -8,7 +8,7 @@ public class DbHelper extends SQLiteOpenHelper{
 
     public static final String DB_NAME = "checkable.db";
 
-    public static final int SCHEMA = 0;
+    public static final int SCHEMA = 1;
 
     private static final String CREATE = "CREATE TABLE words (_id INTEGER PRIMARY KEY AUTOINCREMENT, word TEXT)";
 

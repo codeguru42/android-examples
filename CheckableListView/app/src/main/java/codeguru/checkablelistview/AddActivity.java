@@ -37,6 +37,8 @@ public class AddActivity extends ActionBarActivity {
                     ContentValues values = new ContentValues();
                     values.put("word", word.toString());
                     db.insert("words", null, values);
+
+                    mWordText.setText("");
                 }
             }
         });
