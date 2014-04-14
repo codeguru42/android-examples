@@ -25,8 +25,8 @@ public class MainActivity extends ActionBarActivity {
         startManagingCursor(cursor);
 
         String[] from = new String[]{"word"};
-        int[] to = new int[]{android.R.id.text1};
-        CursorAdapter adapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, cursor, from, to);
+        int[] to = new int[]{R.id.word_text};
+        CursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.row, cursor, from, to);
         ListView listView = (ListView) findViewById(android.R.id.list);
         listView.setAdapter(adapter);
     }
