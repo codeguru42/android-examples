@@ -1,5 +1,6 @@
 package codeguru.checkablelistview;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -29,6 +30,8 @@ public class MainActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.add) {
+            Intent intent = new Intent(this, AddActivity.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
