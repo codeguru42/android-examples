@@ -17,6 +17,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors{
+
+        flavor1 {
+        }
+
+        flavor2 {
+        }
+    }
 }
 
 dependencies {
