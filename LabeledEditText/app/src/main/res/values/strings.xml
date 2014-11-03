@@ -3,6 +3,7 @@
 
     <string name="app_name">LabeledEditText</string>
     <string name="label">Label:</string>
+    <string name="hint">Hint</string>
     <string name="action_settings">Settings</string>
 
 </resources>

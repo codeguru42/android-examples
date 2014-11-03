@@ -2,5 +2,6 @@
 <resources>
     <declare-styleable name="LabeledEditText">
         <attr name="label" format="string"/>
+        <attr name="hint" format="string"/>
     </declare-styleable>
 </resources>

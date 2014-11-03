@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.ButterKnife;
@@ -12,6 +13,7 @@ import butterknife.InjectView;
 public class LabeledEditText extends LinearLayout {
 
     @InjectView(R.id.label) TextView label;
+    @InjectView(R.id.edit) EditText edit;
 
     public LabeledEditText(Context context) {
         this(context, null);
@@ -32,6 +34,7 @@ public class LabeledEditText extends LinearLayout {
 
         try {
             label.setText(a.getString(R.styleable.LabeledEditText_label));
+            edit.setHint(a.getString(R.styleable.LabeledEditText_hint));
         } finally {
             a.recycle();
         }
