@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">LabeledEditText</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="label">Label:</string>
     <string name="action_settings">Settings</string>
 
 </resources>
