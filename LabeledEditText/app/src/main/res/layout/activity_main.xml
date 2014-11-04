@@ -10,10 +10,12 @@
                 tools:context=".MainActivity">
 
     <codeguru.labelededittext.LabeledEditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
+        app:editWeight="7"
         app:hint="@string/hint"
-        app:label="@string/label"/>
+        app:label="@string/label"
+        app:labelWeight="3"/>
 
 </RelativeLayout>
