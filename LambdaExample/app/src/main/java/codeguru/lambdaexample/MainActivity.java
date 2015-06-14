@@ -4,12 +4,19 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        final String helloString = getString(R.string.hello_world);
+        Button helloButton = (Button) findViewById(R.id.hello_button);
+        helloButton.setOnClickListener((v) -> Toast.makeText(this, helloString, Toast.LENGTH_LONG).show());
     }
 
     @Override
