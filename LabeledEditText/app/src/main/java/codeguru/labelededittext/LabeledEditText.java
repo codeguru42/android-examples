@@ -26,7 +26,7 @@ public class LabeledEditText extends LinearLayout {
 
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.LabeledEditText,
                 0, 0);
-        int[] set = {android.R.attr.inputType};
+        int[] set = {android.R.attr.inputType, android.R.attr.singleLine};
         TypedArray b = context.getTheme().obtainStyledAttributes(attrs, set, 0, 0);
 
         try {
@@ -43,6 +43,7 @@ public class LabeledEditText extends LinearLayout {
             label.setText(a.getString(R.styleable.LabeledEditText_label));
             edit.setHint(a.getString(R.styleable.LabeledEditText_hint));
             edit.setInputType(b.getInt(0, 0));
+            edit.setSingleLine(b.getBoolean(1, true));
         } finally {
             a.recycle();
         }
