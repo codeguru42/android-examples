@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">TestNextButton</string>
+    <string name="action_settings">Settings</string>
+    <string name="second">Second:</string>
+    <string name="first">First:</string>
 </resources>
