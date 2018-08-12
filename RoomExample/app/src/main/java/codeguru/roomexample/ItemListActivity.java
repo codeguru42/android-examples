@@ -1,10 +1,12 @@
 package codeguru.roomexample;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Locale;
 
 import codeguru.roomexample.database.ExampleDatabase;
 import codeguru.roomexample.database.Item;
@@ -63,7 +66,13 @@ public class ItemListActivity extends AppCompatActivity {
             public void run() {
                 ExampleDatabase database = ExampleDatabase.getInstance(getApplicationContext());
                 LiveData<List<Item>> items = database.exampleDao().getItems();
-                mAdapter.setItemList(items.getValue());
+                items.observe(ItemListActivity.this, new Observer<List<Item>>() {
+                    @Override
+                    public void onChanged(@Nullable List<Item> items) {
+                        mAdapter.setItemList(items);
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
             }
         }).start();
 
@@ -123,7 +132,8 @@ public class ItemListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-            holder.mIdView.setText(mValues.get(position).id);
+            Locale defaultLocale = Locale.getDefault();
+            holder.mIdView.setText(String.format(defaultLocale, "%d", mValues.get(position).id));
             holder.mContentView.setText(mValues.get(position).content);
 
             holder.itemView.setTag(mValues.get(position));

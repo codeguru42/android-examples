@@ -5,7 +5,7 @@ import android.arch.persistence.room.PrimaryKey;
 
 @Entity
 public class Item {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public int id;
     public String content;
     public String details;
