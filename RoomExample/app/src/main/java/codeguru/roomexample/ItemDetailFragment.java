@@ -1,7 +1,9 @@
 package codeguru.roomexample;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -44,31 +46,38 @@ public class ItemDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
+        Bundle arguments = getArguments();
+        if (arguments != null && arguments.containsKey(ARG_ITEM_ID)) {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-            mItemId = getArguments().getInt(ARG_ITEM_ID);
+            mItemId = arguments.getInt(ARG_ITEM_ID);
+
+            final Activity activity = this.getActivity();
 
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    ExampleDatabase database = ExampleDatabase.getInstance(getActivity().getApplicationContext());
-                    mItem = database.exampleDao().getItem(mItemId).getValue();
+                    if (activity != null) {
+                        Context context = activity.getApplicationContext();
+                        ExampleDatabase database = ExampleDatabase.getInstance(context);
+                        mItem = database.exampleDao().getItem(mItemId).getValue();
+                    }
                 }
             });
 
-            Activity activity = this.getActivity();
-            CollapsingToolbarLayout appBarLayout = activity.findViewById(R.id.toolbar_layout);
-            if (appBarLayout != null) {
-                mTitle = getActivity().getString(R.string.title_item, mItemId);
-                appBarLayout.setTitle(mTitle);
+            if (activity != null) {
+                CollapsingToolbarLayout appBarLayout = activity.findViewById(R.id.toolbar_layout);
+                if (appBarLayout != null) {
+                    mTitle = activity.getString(R.string.title_item, mItemId);
+                    appBarLayout.setTitle(mTitle);
+                }
             }
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.item_detail, container, false);
         mDetailEditText = rootView.findViewById(R.id.item_detail);
