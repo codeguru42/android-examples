@@ -17,11 +17,11 @@ public interface ItemDao {
     Item getItem(int id);
 
     @Insert
-    void insertItem();
+    void insertItem(Item item);
 
     @Update
-    void updateItem();
+    void updateItem(Item item);
 
     @Delete
-    void deleteItem();
+    void deleteItem(Item item);
 }

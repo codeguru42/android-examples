@@ -17,7 +17,7 @@ public abstract class ExampleDatabase extends RoomDatabase {
         return instance;
     }
 
-    private ExampleDatabase() {}
+    ExampleDatabase() {}
 
     public abstract ItemDao exampleDao();
 }
