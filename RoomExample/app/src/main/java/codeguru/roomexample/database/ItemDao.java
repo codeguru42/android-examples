@@ -1,5 +1,6 @@
 package codeguru.roomexample.database;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -11,10 +12,10 @@ import java.util.List;
 @Dao
 public interface ItemDao {
     @Query("SELECT * FROM item")
-    List<Item> getItems();
+    LiveData<List<Item>> getItems();
 
     @Query("SELECT * FROM item WHERE id = :id")
-    Item getItem(int id);
+    LiveData<Item> getItem(int id);
 
     @Insert
     void insertItem(Item item);

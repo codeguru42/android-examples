@@ -20,16 +20,17 @@ android {
 
 dependencies {
     def appcompat_version = "27.1.1"
-    def room_version = "1.1.1"
+    def arch_comp_version = "1.1.1"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:$appcompat_version"
     implementation "com.android.support:support-v4:$appcompat_version"
     implementation "com.android.support:recyclerview-v7:$appcompat_version"
     implementation "com.android.support:design:$appcompat_version"
-    implementation "android.arch.persistence.room:runtime:$room_version"
+    implementation "android.arch.persistence.room:runtime:$arch_comp_version"
+    implementation "android.arch.lifecycle:livedata:$arch_comp_version"
 
-    annotationProcessor  "android.arch.persistence.room:compiler:$room_version"
+    annotationProcessor  "android.arch.persistence.room:compiler:$arch_comp_version"
 
     testImplementation 'junit:junit:4.12'
 

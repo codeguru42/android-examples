@@ -1,5 +1,6 @@
 package codeguru.roomexample;
 
+import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import codeguru.roomexample.database.ExampleDatabase;
+import codeguru.roomexample.database.Item;
 import codeguru.roomexample.dummy.DummyContent;
 
 import java.util.List;
@@ -52,10 +55,19 @@ public class ItemListActivity extends AppCompatActivity {
             mTwoPane = true;
         }
 
+        mAdapter = new SimpleItemRecyclerViewAdapter(ItemListActivity.this, mTwoPane);
+
         RecyclerView recyclerView = findViewById(R.id.item_list);
-        assert recyclerView != null;
-        mAdapter = new SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS, mTwoPane);
         recyclerView.setAdapter(mAdapter);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ExampleDatabase database = ExampleDatabase.getInstance(getApplicationContext());
+                LiveData<List<Item>> items = database.exampleDao().getItems();
+                mAdapter.setItemList(items.getValue());
+            }
+        }).start();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -73,15 +85,15 @@ public class ItemListActivity extends AppCompatActivity {
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
         private final ItemListActivity mParentActivity;
-        private final List<DummyContent.DummyItem> mValues;
+        private List<Item> mValues;
         private final boolean mTwoPane;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
+                Item item = (Item) view.getTag();
                 if (mTwoPane) {
                     Bundle arguments = new Bundle();
-                    arguments.putString(ItemDetailFragment.ARG_ITEM_ID, item.id);
+                    arguments.putInt(ItemDetailFragment.ARG_ITEM_ID, item.id);
                     ItemDetailFragment fragment = new ItemDetailFragment();
                     fragment.setArguments(arguments);
                     mParentActivity.getSupportFragmentManager().beginTransaction()
@@ -98,9 +110,7 @@ public class ItemListActivity extends AppCompatActivity {
         };
 
         SimpleItemRecyclerViewAdapter(ItemListActivity parent,
-                                      List<DummyContent.DummyItem> items,
                                       boolean twoPane) {
-            mValues = items;
             mParentActivity = parent;
             mTwoPane = twoPane;
         }
@@ -123,7 +133,13 @@ public class ItemListActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
+            if (mValues == null)
+                return 0;
             return mValues.size();
+        }
+
+        public void setItemList(List<Item> items) {
+            mValues = items;
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
