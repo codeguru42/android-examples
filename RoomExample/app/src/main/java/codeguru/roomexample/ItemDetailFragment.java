@@ -1,15 +1,16 @@
 package codeguru.roomexample;
 
 import android.app.Activity;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.EditText;
 
-import codeguru.roomexample.dummy.DummyContent;
+import codeguru.roomexample.database.ExampleDatabase;
+import codeguru.roomexample.database.Item;
 
 /**
  * A fragment representing a single Item detail screen.
@@ -27,7 +28,10 @@ public class ItemDetailFragment extends Fragment {
     /**
      * The dummy content this fragment is presenting.
      */
-    private DummyContent.DummyItem mItem;
+    private int mItemId;
+    private Item mItem;
+    private String mTitle;
+    private EditText mDetailEditText;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -44,14 +48,21 @@ public class ItemDetailFragment extends Fragment {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-            int itemId = getArguments().getInt(ARG_ITEM_ID);
-            mItem = DummyContent.ITEM_MAP.get(itemId);
+            mItemId = getArguments().getInt(ARG_ITEM_ID);
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    ExampleDatabase database = ExampleDatabase.getInstance(getActivity().getApplicationContext());
+                    mItem = database.exampleDao().getItem(mItemId).getValue();
+                }
+            });
 
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
-                String title = getActivity().getString(R.string.title_item, itemId);
-                appBarLayout.setTitle(title);
+                mTitle = getActivity().getString(R.string.title_item, mItemId);
+                appBarLayout.setTitle(mTitle);
             }
         }
     }
@@ -60,12 +71,22 @@ public class ItemDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.item_detail, container, false);
+        mDetailEditText = rootView.findViewById(R.id.item_detail);
 
-        // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.item_detail)).setText(mItem.details);
+            mDetailEditText.setText(mItem.details);
         }
 
         return rootView;
+    }
+
+    public Item getItem() {
+        if (mItem == null) {
+            mItem = new Item();
+        }
+
+        mItem.content = mTitle;
+        mItem.details = mDetailEditText.getText().toString();
+        return mItem;
     }
 }

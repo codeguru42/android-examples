@@ -3,12 +3,14 @@ package codeguru.roomexample;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+
+import codeguru.roomexample.database.ExampleDatabase;
+import codeguru.roomexample.database.Item;
 
 /**
  * An activity representing a single Item detail screen. This
@@ -17,6 +19,8 @@ import android.view.MenuItem;
  * in a {@link ItemListActivity}.
  */
 public class ItemDetailActivity extends AppCompatActivity {
+
+    private ItemDetailFragment mFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +33,20 @@ public class ItemDetailActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                final Item item = mFragment.getItem();
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ExampleDatabase database = ExampleDatabase.getInstance(getApplicationContext());
+                        if (item.id == 0) {
+                            database.exampleDao().insertItem(item);
+                        } else {
+                            database.exampleDao().updateItem(item);
+                        }
+                        finish();
+                    }
+                }).start();
             }
         });
 
@@ -55,10 +71,10 @@ public class ItemDetailActivity extends AppCompatActivity {
             Bundle arguments = new Bundle();
             int itemId = getIntent().getIntExtra(ItemDetailFragment.ARG_ITEM_ID, -1);
             arguments.putInt(ItemDetailFragment.ARG_ITEM_ID, itemId);
-            ItemDetailFragment fragment = new ItemDetailFragment();
-            fragment.setArguments(arguments);
+            mFragment = new ItemDetailFragment();
+            mFragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.item_detail_container, fragment)
+                    .add(R.id.item_detail_container, mFragment)
                     .commit();
         }
     }
