@@ -44,12 +44,14 @@ public class ItemDetailFragment extends Fragment {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+            int itemId = getArguments().getInt(ARG_ITEM_ID);
+            mItem = DummyContent.ITEM_MAP.get(itemId);
 
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.content);
+                String title = getActivity().getString(R.string.title_item, itemId);
+                appBarLayout.setTitle(title);
             }
         }
     }

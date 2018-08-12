@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">RoomExample</string>
     <string name="title_item_detail">Item Detail</string>
+    <string name="title_item">Item %d</string>
 </resources>
