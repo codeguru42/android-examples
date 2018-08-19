@@ -64,7 +64,7 @@ public class ItemDetailFragment extends Fragment {
                         mItem = database.exampleDao().getItem(mItemId).getValue();
                     }
                 }
-            });
+            }).start();
 
             if (activity != null) {
                 CollapsingToolbarLayout appBarLayout = activity.findViewById(R.id.toolbar_layout);
