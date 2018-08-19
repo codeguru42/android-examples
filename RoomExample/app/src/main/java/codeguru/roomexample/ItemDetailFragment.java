@@ -2,6 +2,7 @@ package codeguru.roomexample;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -21,25 +22,34 @@ import codeguru.roomexample.database.Item;
  * on handsets.
  */
 public class ItemDetailFragment extends Fragment {
-    /**
-     * The fragment argument representing the item ID that this fragment
-     * represents.
-     */
     public static final String ARG_ITEM_ID = "item_id";
 
-    /**
-     * The dummy content this fragment is presenting.
-     */
-    private int mItemId;
     private Item mItem;
     private String mTitle;
     private EditText mDetailEditText;
+    private CollapsingToolbarLayout appBarLayout;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public ItemDetailFragment() {
+    private class ItemTask extends AsyncTask<Integer, Void, Item> {
+        private Context context;
+
+        ItemTask(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        protected Item doInBackground(Integer... ids) {
+            Context context = this.context.getApplicationContext();
+            ExampleDatabase database = ExampleDatabase.getInstance(context);
+            return database.exampleDao().getItem(ids[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Item item) {
+            if (item != null) {
+                appBarLayout.setTitle(item.content);
+                mDetailEditText.setText(item.details);
+            }
+        }
     }
 
     @Override
@@ -48,28 +58,15 @@ public class ItemDetailFragment extends Fragment {
 
         Bundle arguments = getArguments();
         if (arguments != null && arguments.containsKey(ARG_ITEM_ID)) {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
-            mItemId = arguments.getInt(ARG_ITEM_ID);
+            int itemId = arguments.getInt(ARG_ITEM_ID);
 
             final Activity activity = this.getActivity();
-
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    if (activity != null) {
-                        Context context = activity.getApplicationContext();
-                        ExampleDatabase database = ExampleDatabase.getInstance(context);
-                        mItem = database.exampleDao().getItem(mItemId).getValue();
-                    }
-                }
-            }).start();
+            new ItemTask(activity).execute(itemId);
 
             if (activity != null) {
-                CollapsingToolbarLayout appBarLayout = activity.findViewById(R.id.toolbar_layout);
+                appBarLayout = activity.findViewById(R.id.toolbar_layout);
                 if (appBarLayout != null) {
-                    mTitle = activity.getString(R.string.title_item, mItemId);
+                    mTitle = activity.getString(R.string.title_item, itemId);
                     appBarLayout.setTitle(mTitle);
                 }
             }
@@ -81,10 +78,6 @@ public class ItemDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.item_detail, container, false);
         mDetailEditText = rootView.findViewById(R.id.item_detail);
-
-        if (mItem != null) {
-            mDetailEditText.setText(mItem.details);
-        }
 
         return rootView;
     }

@@ -15,7 +15,7 @@ public interface ItemDao {
     LiveData<List<Item>> getItems();
 
     @Query("SELECT * FROM item WHERE id = :id")
-    LiveData<Item> getItem(int id);
+    Item getItem(int id);
 
     @Insert
     void insertItem(Item item);
