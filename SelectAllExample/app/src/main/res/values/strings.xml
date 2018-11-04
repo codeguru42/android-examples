@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">SelectAllExample</string>
+
+    <string-array name="data">
+        <item>Eddard</item>
+        <item>Catelyn</item>
+        <item>Robb</item>
+        <item>Sansa</item>
+        <item>Arya</item>
+        <item>Brandon</item>
+        <item>Rickon</item>
+    </string-array>
 </resources>
