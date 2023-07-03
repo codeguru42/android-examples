@@ -3,6 +3,7 @@ package codeguru.composetutorial
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -22,7 +23,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    MessageCard(Message("Android", "Jetpack Compose"))
                 }
             }
         }
@@ -30,17 +31,19 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun MessageCard(msg: Message) {
+    Column {
+        Text(text = msg.author)
+        Text(text = msg.body)
+    }
 }
+
+data class Message(val author: String, val body: String)
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun MessageCardPreview() {
     ComposeTutorialTheme {
-        Greeting("Android")
+        MessageCard(Message("Android", "Jetpack Compose"))
     }
 }
