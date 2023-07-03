@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">NotificationExample</string>
-    <string name="text_label">Hello Android</string>
+    <string name="button_text">Send Notification</string>
 </resources>
