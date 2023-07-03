@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">NotificationExample</string>
+    <string name="text_label">Hello Android</string>
 </resources>
