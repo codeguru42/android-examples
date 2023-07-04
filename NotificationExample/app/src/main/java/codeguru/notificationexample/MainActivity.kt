@@ -1,13 +1,23 @@
 package codeguru.notificationexample
 
 import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import codeguru.notificationexample.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
+
+object NotificationConstants {
+    const val CHANNEL_ID = "codeguru.notificationexample"
+}
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -18,6 +28,7 @@ class MainActivity : AppCompatActivity() {
             if (isGranted) {
                 Snackbar.make(binding.root, "Permission Granted", Snackbar.LENGTH_LONG)
                     .show()
+                showNotification()
             } else {
                 // Explain to the user that the feature is unavailable because the
                 // feature requires a permission that the user has denied. At the
@@ -37,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         binding.notificationButton.setOnClickListener {
             requestPermission()
         }
+        createNotificationChannel()
     }
 
     private fun requestPermission() {
@@ -48,6 +60,7 @@ class MainActivity : AppCompatActivity() {
                 // You can use the API that requires the permission.
                 Snackbar.make(binding.root, "Permission already granted", Snackbar.LENGTH_LONG)
                     .show()
+                showNotification()
             }
 
             shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS) -> {
@@ -66,6 +79,37 @@ class MainActivity : AppCompatActivity() {
                 // The registered ActivityResultCallback gets the result of this request.
                 requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
             }
+        }
+    }
+
+    private fun createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = getString(R.string.channel_name)
+            val descriptionText = getString(R.string.channel_description)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(NotificationConstants.CHANNEL_ID, name, importance).apply {
+                description = descriptionText
+            }
+            // Register the channel with the system
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+    private fun showNotification() {
+        val textTitle = "Notification Example"
+        val textContent = "Here's a friendly notification"
+        val builder = NotificationCompat.Builder(this, NotificationConstants.CHANNEL_ID)
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .setContentTitle(textTitle)
+            .setContentText(textContent)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        with(NotificationManagerCompat.from(this)) {
+            // notificationId is a unique int for each notification that you must define
+            notify(1, builder.build())
         }
     }
 }
