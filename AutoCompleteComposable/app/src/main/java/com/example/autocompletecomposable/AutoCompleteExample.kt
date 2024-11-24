@@ -1,7 +1,6 @@
 package com.example.autocompletecomposable
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -17,19 +16,24 @@ import androidx.compose.ui.Modifier
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AutoCompleteExample() {
-    Scaffold(
-        topBar = { TopAppBar(title = { Text("AutoCompleteExample") }) },
-        modifier = Modifier.fillMaxSize(),
-    ) { innerPadding ->
+    Scaffold(topBar = { TopAppBar(title = { Text("AutoCompleteExample") }) }) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
             val names = listOf("Tony Stark", "Steve Rogers", "Bruce Banner", "Natasha Romanoff")
             var name by remember { mutableStateOf("") }
+            val aliases = listOf("Iron Man", "Captain America", "Hulk", "Black Widow")
+            var alias by remember { mutableStateOf("") }
 
             AutoComplete(
                 label = { Text("Name") },
                 options = names,
                 value = name,
                 onValueChange = { name = it },
+            )
+            AutoComplete(
+                value = alias,
+                options = aliases,
+                onValueChange = { alias = it },
+                label = { Text("Alias") }
             )
         }
     }
